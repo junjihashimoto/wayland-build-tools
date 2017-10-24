@@ -19,6 +19,17 @@ gen() {
 	./autogen.sh --prefix=$WLD $*
 }
 
+genForCmake() {
+	pkg=$1
+	shift
+	echo
+	echo $pkg
+	cd $WLROOT/$pkg
+	echo "git@github.com:FreeRDP/FreeRDP.git./autogen.sh --prefix=$WLD $*"
+	cmake -DCMAKE_INSTALL_PREFIX:PATH=$WLD .
+}
+
+
 compile() {
 	make -j32 && make install
 	if [ $? != 0 ]; then
@@ -37,6 +48,9 @@ distcheck() {
 #       delete $WLD
 
 mkdir -p $WLD/share/aclocal
+
+genForCmake FreeRDP
+compile
 
 gen wayland
 compile
@@ -209,6 +223,7 @@ git clean -xfd
 	--enable-setuid-install=no \
 	--enable-clients \
 	--enable-headless-compositor \
+	--enable-rdp-compositor \
 	--enable-demo-clients-install
 compile
 #distcheck

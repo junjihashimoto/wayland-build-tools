@@ -57,6 +57,7 @@ clone_or_update git://anongit.freedesktop.org/wayland/wayland-protocols
 clone_or_update git://git.code.sf.net/p/linuxwacom/libwacom
 clone_or_update git://anongit.freedesktop.org/wayland/libinput
 clone_or_update git://anongit.freedesktop.org/wayland/weston
+clone_or_update git://github.com/FreeRDP/FreeRDP
 
 if [ ${INCLUDE_XWAYLAND} ]; then
 	if [ ${WL_BITS} = "32" ]; then
